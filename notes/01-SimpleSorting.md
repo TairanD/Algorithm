@@ -50,7 +50,3 @@ we have length n array, then each iteration we increase the sorted area by 1 ele
 Therefore, we need to `n-1` (=`(1+1*(n-2))`) times of external iterations.
 2. The Internal Loop:
 The internal loop aims to put the unsorted element to its sorted location in this external loop.
-
-
-   
-
