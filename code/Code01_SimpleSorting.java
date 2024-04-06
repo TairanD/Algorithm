@@ -12,7 +12,7 @@ public class Code01_SimpleSorting {
         for (int i=0; i<arr.length-1; i++){
             int minIndex = i;
             for (int j=i+1; j < arr.length; j++){
-                minIndex = arr[j]<arr[i] ? j : minIndex;
+                minIndex = arr[j]<arr[minIndex] ? j : minIndex;
             }
             swap(arr, i, minIndex);
         }
