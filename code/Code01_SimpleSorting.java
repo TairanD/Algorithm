@@ -11,7 +11,7 @@ public class Code01_SimpleSorting {
     public static void selectionSort(int[] arr){
         for (int i=0; i<arr.length-1; i++){
             int minIndex = i;
-            for (int j=i+1; j!= arr.length; j++){
+            for (int j=i+1; j < arr.length; j++){
                 minIndex = arr[j]<arr[i] ? j : minIndex;
             }
             swap(arr, i, minIndex);
