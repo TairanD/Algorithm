@@ -85,6 +85,5 @@ public class Code02 {
         for (int i: testArr){
             System.out.println(i);
         }
-
     }
 }
