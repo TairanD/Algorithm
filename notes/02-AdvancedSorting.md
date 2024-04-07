@@ -8,5 +8,7 @@ only one element.
 3. Recursive Call mergeSort function
 4. Merge: During the merge operation, the elements of two sorted subarrays are compared and merged into a single sorted array.
 
+Why MergeSort is more efficient? - Because it does not a lot of comparison operations (unlike the previous algorithms).
 
-## 2 - 
+*Note: recursion process can be viewed as a tree with some kind of traversal.
+## 2 - Small Sum
