@@ -22,6 +22,15 @@ public class Code04 {
             head.next = next.next;
             next.next = currentHead;
             currentHead = next;
+
+            /** There is a very common-used technique I'd like to point it out:
+             *  To change sth. (like a particular code in the linked list),
+             *  we need to store it firstly into another variable to prevent losing its value (if we still need to access to it),
+             *  then assigning another variable to this one.
+             *
+             *  In this case, we store head.next to variable next so that we can perform further operations on it (next.next = currentHead;),
+             *  and use it (currentHead = next;) again.
+             *  **/
         }
         return currentHead;
     }
@@ -158,6 +167,62 @@ public class Code04 {
         return false;
     }
 
+    public static <V extends Comparable<V>> boolean ifPalindrome2(Node<V> head){
+        if (head == null){
+            return false;
+        }
+        Node<V> slowerPointer = head;
+        Node<V> fasterPointer = head;
+
+        // I want the slower pointer be the middle node of the list
+        // and when the length of the list is even
+        while (true){
+            // if slowerPointer = null, meaning that the list has only a head.
+            if (slowerPointer.next==null){
+                return true;
+            }
+
+            // (fasterPointer.next == null) means that the length of the list is odd
+            // (because we start at head and jump two pace once a time for faster pointer)
+            // and at this time, slowerPointer is at the middle location!
+            if (fasterPointer.next == null){
+                break;
+                // (fasterPointer.next.next == null && fasterPointer.next != null) means the length of the list is even
+                // and at the point, slowerPointer locates at the last node of the middle point of the list
+                // so if I want it to be the next node of the middle point of the list, I need to 'next' it
+            } else if (fasterPointer.next.next == null) {
+                slowerPointer = slowerPointer.next;
+                break;
+            } else {
+                slowerPointer = slowerPointer.next;
+                fasterPointer = fasterPointer.next.next;
+            }
+        }
+        // in this loop, I need to reverse the right part of the list
+        Node<V> reversedRightHead = reverseList(slowerPointer);
+        /** I do not want to change the left side of the list, but at the same time, I want to iterate the list.
+         *  Therefore, I need a variable that I can change (reassign) to visit other nodes in the list, meanwhile, it should
+         *  contain information of the head node, which I do not want to change.
+         *  ->
+         *  I need to create a new variable to remember head object.
+         *  In this way, I can access to head information and can reassign this temp variable without changing to the original list.
+         *  In this case, I do not want to change head (because if I do so, we will lose the original head FOREVER), and I need to
+         *  use information of head. Thus, I create a variable to remember head, and after access to data I need, I reassign the variable.
+         * **/
+        Node<V> temp = head;
+        Node<V> temp2 = reversedRightHead;
+        while (temp2!=null){
+            if (temp.value!= temp2.value){
+                reverseList(reversedRightHead);
+                return false;
+            }
+            temp2 = temp2.next;
+            temp = temp.next;
+        }
+        reverseList(reversedRightHead);
+        return true;
+    }
+
     public static <V extends Comparable<V>> void sort(Node<V> head){
         // I need to create 6 pointers (nodes) to trace the shared part
         Node<V> smallHead = new Node<>(null);
@@ -167,17 +232,6 @@ public class Code04 {
         Node<V> largerHead = new Node<>(null);
         Node<V> largerTail = new Node<>(null);
     }
-
-
-
-
-
-
-
-
-
-
-
 
     public static void main(String[] args) {
         Node<Integer> head1 = new Node<>(1);
@@ -213,11 +267,11 @@ public class Code04 {
         Node<Integer> head4 = new Node<>(4);
         head4.next = new Node<>(5);
         head4.next.next = new Node<>(6);
-        head4.next.next.next = new Node<>(6);
-        head4.next.next.next.next = new Node<>(5);
-        head4.next.next.next.next.next = new Node<>(4);
+        head4.next.next.next = new Node<>(5);
+        head4.next.next.next.next = new Node<>(4);
 
-        System.out.println(ifPalindrome(head1));
-        System.out.println(ifPalindrome(head4));
+        System.out.println(ifPalindrome2(head1));
+        System.out.println(ifPalindrome2(head4));
+        printLinkedList(head4);
     }
 }

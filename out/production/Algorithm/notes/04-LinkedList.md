@@ -1,4 +1,4 @@
-# LinkedList
+# code.LinkedList
 
 ### Definition
 The inked list is a linear data structure storing elements, in which each is actually a separate object 
