@@ -1,7 +1,6 @@
 package code;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Stack;
 
 public class Code04 {
@@ -223,14 +222,70 @@ public class Code04 {
         return true;
     }
 
-    public static <V extends Comparable<V>> void sort(Node<V> head){
+    public static <V extends Comparable<V>> Node<V> sort(Node<V> head, V pivot){
+        if (head == null || head.next == null){
+            return head;
+        }
+
         // I need to create 6 pointers (nodes) to trace the shared part
         Node<V> smallHead = new Node<>(null);
-        Node<V> smallTail = new Node<>(null);
-        Node<V> equalHead = new Node<>(null);
-        Node<V> equalTail = new Node<>(null);
-        Node<V> largerHead = new Node<>(null);
-        Node<V> largerTail = new Node<>(null);
+        Node<V> smallTail = new Node<>(null);;
+        Node<V> equalHead = new Node<>(null);;
+        Node<V> equalTail = new Node<>(null);;
+        Node<V> largerHead = new Node<>(null);;
+        Node<V> largerTail = new Node<>(null);;
+
+        Node<V> cur = head;
+        while (cur!=null){
+            int result = cur.value.compareTo(pivot);
+            if (result < 0){
+                smallTail = update((Node<V>) smallHead, (Node<V>) smallTail, (Node<V>) cur);
+            } else if (result == 0) {
+                equalTail = update((Node<V>) equalHead, (Node<V>) equalTail, (Node<V>) cur);
+            } else {
+                largerTail = update((Node<V>) largerHead, (Node<V>) largerTail, (Node<V>) cur);
+            }
+            cur = cur.next;
+        }
+        if (smallTail.value == null){
+            if (equalTail.value != null && largerHead.value!=null){
+                equalTail.next = largerHead;
+                return equalHead;
+            }
+            return largerHead;
+        } else if (equalTail.value == null) {
+            if (largerHead.value!=null){
+                smallTail.next = largerHead;
+            }
+            return smallHead;
+        }
+        smallTail.next = equalHead;
+        equalTail.next = largerHead;
+        return smallHead;
+    }
+
+    private static <V extends Comparable<V>> Node<V> update(Node<V> largerHead, Node<V> largerTail, Node<V> cur) {
+        if (largerHead.value == null){
+            largerHead.value = cur.value;
+            largerTail.value = cur.value;
+        }else {
+            largerTail.next = new Node<>(cur.value);
+            largerTail = largerTail.next;
+            if (largerHead.next == null){
+                largerHead.next = largerTail;
+            }
+        }
+        return largerTail;
+    }
+
+    // method updateNode aims to add the current node to the partial linked list
+    public static <V extends Comparable<V>> void updateNode(Node<V> head, Node<V> tail, Node<V> cur){
+        if (head.value == null){
+            head.value = cur.value;
+            tail.value = cur.value;
+        }else {
+            tail.next = new Node<>(cur.value);
+        }
     }
 
     public static void main(String[] args) {
@@ -270,8 +325,17 @@ public class Code04 {
         head4.next.next.next = new Node<>(5);
         head4.next.next.next.next = new Node<>(4);
 
+        Node<Integer> head5 = new Node<>(4);
+        head5.next = new Node<>(5);
+
+        Node<Integer> head56 = new Node<>(4);
+        head56.next = new Node<>(4);
+
         System.out.println(ifPalindrome2(head1));
         System.out.println(ifPalindrome2(head4));
+        System.out.println(ifPalindrome2(head5));
+        System.out.println(ifPalindrome2(head56));
         printLinkedList(head4);
+        printLinkedList(sort(head4,3));
     }
 }
