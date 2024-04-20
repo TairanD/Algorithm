@@ -1,5 +1,5 @@
 # Java: Pass-By-Value? Pass-By-Reference
-*Reference this [article](https://www.javadude.com/articles/passbyvalue.htm).
+*Reference blog [1](https://www.javadude.com/articles/passbyvalue.htm), [2](https://stackoverflow.com/questions/373419/whats-the-difference-between-passing-by-reference-vs-passing-by-value/430958#430958).
 
 ## 1 - Definition
 Both two terms describe _variables_.
@@ -26,6 +26,11 @@ Java is strictly pass-by-value, exactly as in C. Read the [Java Language Specifi
     When the method or constructor is invoked (§15.12), the **values** of the actual argument expressions initialize newly created 
     parameter variables, each of the declared type, before execution of the body of the method or constructor. The Identifier 
     that appears in the FormalParameter may be used as a simple name in the body of the method or constructor to refer to the formal parameter.
+
+Additionally, in modern languages, variables tend to be of "reference types" (another concept invented later than "pass by reference" and inspired by it): 
+- i.e. the actual object data is stored separately somewhere (usually, on the heap), and only "references" to it are ever held in variables and passed as parameters.
+
+Passing such a reference falls under pass-by-value because a variable's value is technically the reference itself, not the referred object.
 
 ## 2* - C: Always Pass-By-Value
 
