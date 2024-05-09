@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-public class Code05 {
+public class Code05_BinaryTree {
     static class Node{
         int value;
         Node left;
@@ -185,6 +185,23 @@ public class Code05 {
         return maxWidth;
     }
 
+
+    public static boolean ifBST(Node root){
+        if (root==null){
+            return true;
+        }
+
+        boolean ifLeft = ifBST(root.left);
+
+        // do operations here - inorder
+
+
+        boolean ifRight = ifBST(root.right);
+
+        return true;
+    }
+
+
     public static void main(String[] args) {
         Node head = new Node(1);
         head.left = new Node(-222222222);
@@ -202,3 +219,8 @@ public class Code05 {
         System.out.println(maxLevelNodes(head));
     }
 }
+
+// x 有右树 -> x.right.left.left....
+// x 无右树 ->
+//      1. x为其父节点的右节点
+//      2. x为其父节点的左节点: 就是x.parent
