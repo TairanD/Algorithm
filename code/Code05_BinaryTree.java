@@ -50,7 +50,7 @@ public class Code05_BinaryTree {
         Stack<Node> stack = new Stack<>();
         // initialize the stack
         stack.add(root);
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty() || head != null){
             if (root!=null){
                 root = root.left;
                 stack.add(root);
