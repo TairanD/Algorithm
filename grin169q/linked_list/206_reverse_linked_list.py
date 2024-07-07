@@ -24,3 +24,19 @@ class Solution(object):
         node_list[0].next = None
 
         return node_list[-1]
+
+
+class SolutionWithO1SpaceComplexity(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        prev_node = None
+        cur = head
+        while cur:
+            next_node = cur.next
+            cur.next = prev_node
+            prev_node = cur
+            cur = next_node
+        return prev_node
